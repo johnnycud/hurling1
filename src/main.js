@@ -3,13 +3,21 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Vuefire from 'vuefire'
+import firebase from './service/firebase'
+import VueResource from 'vue-resource'
 
 Vue.config.productionTip = false
 
-/* eslint-disable no-new */
+Vue.use(Vuefire)
+Vue.use(VueResource)
+
 new Vue({
-  el: '#app',
-  router,
-  template: '<App/>',
-  components: { App }
+    el: '#app',
+    firebase: {
+        cat: firebase.database.ref('player').orderByChild('created_at')
+    },
+    router,
+    template: '<App/>',
+    components: { App }
 })
