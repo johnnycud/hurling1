@@ -3,33 +3,53 @@
     <div class="mdl-grid">
       <div class="mdl-cell mdl-cell--3-col mdl-cell mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
       <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
-        <div v-for="picture in this.$root.cat" class="image-card" @click="displayDetails(picture['.key'])">
+        <div v-for="player in this.$root.player" class="image-card" @click="displayDetails(player['.key'])">
         <div class="image-card__picture">
-          <img :src="picture.url" />
+          <img :src="player.url" />
         </div>
          <div class="image-card__comment mdl-card__actions">
-         <span>{{ picture.comment }}</span>
+         <span>{{ player.comment }}</span>
          </div>
         </div>
       </div>
     </div>
-    <router-link class="add-picture-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored" to="/players">
+    <div class="add-picture-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored" to="/players">
       <i class="material-icons">add</i>
-    </router-link>
+    </div>
+      <div class="take-picture-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored" to="/camera">
+      <i class="material-icons">camera_alt</i>
+    </div>
+    <router-link/>
   </div>
 </template>
 <script>
-  import data from '../data'
   export default {
-     methods: {
+    methods: {
       displayDetails (id) {
         this.$router.push({name: 'detail', params: { id: id }})
+      },
+      getPlayers () {
+        if (navigator.onLine) {
+          this.savePlayersToCache()
+          return this.$root.cat
+        } else {
+          return JSON.parse(localStorage.getItem('players'))
+        }
+      },
+      savePlayersToCache () {
+        this.$root.$firebaseRefs.cat.orderByChild('created_at').once('value', (snapchot) => {
+          let cachedCats = []
+          snapchot.forEach((catSnapchot) => {
+            let cachedPlayers = catSnapchot.val()
+            cachedPlayer['.key'] = catSnapchot.key
+            cachedPlayers.push(cachedPlayer)
+          })
+          localStorage.setItem('players', JSON.stringify(cachedPlayers))
+        })
       }
     },
-    data () {
-      return {
-        'players': data.players
-      }
+    mounted () {
+      this.savePlayersToCache()
     }
   }
 </script>
@@ -39,6 +59,12 @@
     right: 24px;
     bottom: 24px;
     z-index: 998;
+  }
+  .take-picture-button {
+    position: fixed;
+    right: 24px;
+    bottom: 90px;
+    z-index: 5;
   }
   .image-card {
     position: relative;
