@@ -19,7 +19,7 @@ export default {
             "club": "Thomastown",
             "county": "Kilkenny",
             "positionPlayed": "Goal Keeper",
-            "Description": " a goalkeeper of enormous charisma, he enjoyed a long and fruitful inter-county involvement as a player which brought him five senior All-Ireland medals in three decades - 1957, `63, `67, `69 and `72."
+            "Description": " A goalkeeper of enormous charisma, he enjoyed a long and fruitful inter-county involvement as a player which brought him five senior All-Ireland medals in three decades - 1957, `63, `67, `69 and `72."
         },
         {
             "id": 2,

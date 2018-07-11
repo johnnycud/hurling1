@@ -10,8 +10,9 @@
 </template>
 
 <script>
-
+import { storage } from '../service/firebase';
 export default {
+  
   data () {
     return {
       mediaStream: null
@@ -30,7 +31,7 @@ export default {
         })
         .catch(error => console.error('getUserMedia() error:', error))
     },
-    import { storage } from '../service/firebase';
+    
     methods: {
       capture () {
         const mediaStreamTrack = this.mediaStream.getVideoTracks()[0]

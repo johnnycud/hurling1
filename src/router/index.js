@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Home from '@/components/Home'
 import PlayerView from '@/components/PlayerView'
 import Photo from '@/components/Photo'
 import Video from '@/components/Video'
@@ -9,7 +10,13 @@ import CameraView from '@/components/CameraView'
 Vue.use(Router)
 
 export default new Router({
-    routes: [{
+    routes: [
+         {
+            path: '/',
+            name: 'Home',
+            component: Home
+        },
+        {
             path: '/',
             name: 'player',
             component: PlayerView

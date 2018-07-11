@@ -6,7 +6,7 @@ import router from './router'
 import Vuefire from 'vuefire'
 import firebase from './service/firebase'
 import VueResource from 'vue-resource'
-
+import Bulma from 'bulma'
 Vue.config.productionTip = false
 
 Vue.use(Vuefire)
@@ -15,7 +15,7 @@ Vue.use(VueResource)
 new Vue({
     el: '#app',
     firebase: {
-        cat: firebase.database.ref('player').orderByChild('created_at')
+        player: firebase.database.ref('player').orderByChild('created_at')
     },
     router,
     template: '<App/>',

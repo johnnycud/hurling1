@@ -1,89 +1,60 @@
 <template>
-  <div>
-    <div class="mdl-grid">
-      <div class="mdl-cell mdl-cell--3-col mdl-cell mdl-cell--1-col-tablet mdl-cell--hide-phone"></div>
-      <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-phone">
-        <div v-for="player in this.$root.player" class="image-card" @click="displayDetails(player['.key'])">
-        <div class="image-card__picture">
-          <img :src="player.url" />
+  <div class="faq">
+    <div class="container">
+      <section class="section">
+        <h1 class="title">Players</h1>
+        <h2 class="subtitle is-4">That game had everything and it just shows all the work that’s being put in up in Dublin. They were outstanding and that’s the perfect preparation for an All Ireland final..</h2>
+
+        <div class="columns" v-if="players && players.length">
+          <div class="column is-one-third" v-for="faq of faqs">
+            <div class="card">
+              <div class="card-content">
+                <p class="title">{{ players.title }}</p>
+                <p class="answer">{{players.body }}</p>
+              </div>
+            </div>
+          </div>
         </div>
-         <div class="image-card__comment mdl-card__actions">
-         <span>{{ player.comment }}</span>
-         </div>
-        </div>
-      </div>
+      </section>
     </div>
-    <div class="add-picture-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored" to="/players">
-      <i class="material-icons">add</i>
-    </div>
-      <div class="take-picture-button mdl-button mdl-js-button mdl-button--fab mdl-button--colored" to="/camera">
-      <i class="material-icons">camera_alt</i>
-    </div>
-    <router-link/>
   </div>
 </template>
+
 <script>
-  export default {
-    methods: {
-      displayDetails (id) {
-        this.$router.push({name: 'detail', params: { id: id }})
-      },
-      getPlayers () {
-        if (navigator.onLine) {
-          this.savePlayersToCache()
-          return this.$root.cat
-        } else {
-          return JSON.parse(localStorage.getItem('players'))
-        }
-      },
-      savePlayersToCache () {
-        this.$root.$firebaseRefs.cat.orderByChild('created_at').once('value', (snapchot) => {
-          let cachedCats = []
-          snapchot.forEach((catSnapchot) => {
-            let cachedPlayers = catSnapchot.val()
-            cachedPlayer['.key'] = catSnapchot.key
-            cachedPlayers.push(cachedPlayer)
-          })
-          localStorage.setItem('players', JSON.stringify(cachedPlayers))
-        })
-      }
-    },
-    mounted () {
-      this.savePlayersToCache()
-    }
+
+import axios from 'axios';
+
+export default {
+  name: 'faq',
+  data: () => ({
+    faqs: [],
+    errors: []
+  }),
+
+  created() {
+    axios.get('http://jsonplaceholder.typicode.com/posts')
+      .then(response => {
+        this.faqs = response.data.slice(0,10);
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
   }
+}
 </script>
-<style scoped>
-  .add-picture-button {
-    position: fixed;
-    right: 24px;
-    bottom: 24px;
-    z-index: 998;
-  }
-  .take-picture-button {
-    position: fixed;
-    right: 24px;
-    bottom: 90px;
-    z-index: 5;
-  }
-  .image-card {
-    position: relative;
-    margin-bottom: 8px;
-  }
-  .image-card__picture > img {
-    width:100%;
-  }
-  .image-card__comment {
-    position: absolute;
-    bottom: 0;
-    height: 52px;
-    padding: 16px;
-    text-align: right;
-    background: rgba(0, 0, 0, 0.5);
-  }
-  .image-card__comment > span {
-    color: #fff;
-    font-size: 14px;
-    font-weight: bold;
-  }
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="sass" scoped>
+@import '../mq'
+
+.pd
+  padding: 2.5em 0 1.5em 0
+
+.answer
+  margin-top: 10px !important
+  color: gray
+
+.columns
+  flex-wrap: wrap
+
 </style>

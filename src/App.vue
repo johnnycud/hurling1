@@ -1,41 +1,105 @@
 <template>
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header">
-      <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title">Hurling Profiles</span>
+  <div id="app">
+    <div class="nav has-shadow">
+      <div class="container">
+        <div class="nav-left">
+          <a class="nav-item">Hurling Profiles</a>
+        </div>
+
+        <span class="nav-toggle" v-on:click="toggleNav" v-bind:class="{ 'is-active': isActive }">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+
+        <div class="nav-right nav-menu" v-bind:class="{ 'is-active': isActive }">
+
+          <router-link to="/" class="nav-item r-item">Home</router-link>
+          <router-link to="faq" class="nav-item r-item">Players</router-link>
+          <router-link to="faq" class="nav-item r-item">Photos</router-link>
+          <router-link to="faq" class="nav-item r-item">Videos</router-link>
+
+          <div class="nav-item">
+            <p class="control">
+              <a class="button is-primary is-outlined">
+                <span class="icon">
+                  <i class="fa fa-download"></i>
+                </span>
+                <span>Join Now</span>
+              </a>
+            </p>
+          </div>
+
+        </div>
       </div>
-    </header>
-    <div class="mdl-layout__drawer">
-      <span class="mdl-layout-title">Hurling Profiles</span>
-      <nav class="mdl-navigation">
-        <router-link class="mdl-navigation__link" to="/" @click.native="hideMenu">Home</router-link>
-        <router-link class="mdl-navigation__link" to="/photo" @click.native="hideMenu">Photos</router-link>
-        <router-link class="mdl-navigation__link" to="/video" @click.native="hideMenu">Video</router-link>
-      </nav>
     </div>
-    <main class="mdl-layout__content">
-      <div class="page-content">
-        <router-view></router-view>
+
+    <router-view></router-view>
+
+    <footer class="footer is-primary">
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <p>Links.</p>
+          </div>
+          <div class="column has-text-right">
+            <a class="icon" href="#"><i class="fa fa-facebook"></i></a>
+            <a class="icon" href="#"><i class="fa fa-twitter"></i></a>
+          </div>
+        </div>
       </div>
-    </main>
+    </footer>
   </div>
 </template>
 
 <script>
-require('material-design-lite')
 export default {
   name: 'app',
-
+  data: function() {
+    return {
+      isActive: false
+    }
+  },
   methods: {
-    hideMenu: function () {
-      document.getElementsByClassName('mdl-layout__drawer')[0].classList.remove('is-visible')
-      document.getElementsByClassName('mdl-layout__obfuscator')[0].classList.remove('is-visible')
+    toggleNav: function() {
+      this.isActive = !this.isActive;
     }
   }
 }
 </script>
 
-<style>
-  @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-  @import url('https://code.getmdl.io/1.2.1/material.blue-red.min.css');
+<style lang="sass">
+@import '../node_modules/bulma/bulma.sass'
+@import 'mq'
+
+.nav
+  background-color: #383838
+  a:hover
+    color: gray
+
+.nav-left a 
+  color: #fff
+  font-weight: bold
+
+a.r-item
+  color:#C1C1C1
+  padding: 0.5rem 1.75rem
+  +mobile
+    color: gray
+    &:hover
+      background-color: #F1F1F1
+
+.nav-toggle span
+  background-color: #C1C1C1
+
+footer
+  background-color: $primary !important
+  color: #fff
+
+  .icon
+    color: #fff
+    margin-left: 20px
+
+
 </style>
+
