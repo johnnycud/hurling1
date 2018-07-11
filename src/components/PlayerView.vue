@@ -32,7 +32,8 @@ export default {
   }),
 
   created() {
-    axios.get('http://jsonplaceholder.typicode.com/posts')
+    axio
+s.get('http://jsonplaceholder.typicode.com/posts')
       .then(response => {
         this.faqs = response.data.slice(0,10);
       })
@@ -56,5 +57,6 @@ export default {
 
 .columns
   flex-wrap: wrap
+
 
 </style>
