@@ -11,6 +11,7 @@ Vue.config.productionTip = false
 
 Vue.use(Vuefire)
 Vue.use(VueResource)
+Vue.use(Bulma)
 
 new Vue({
     el: '#app',

@@ -3,14 +3,14 @@
     <div class="container">
       <section class="section">
         <h1 class="title">Players</h1>
-        <h2 class="subtitle is-4">That game had everything and it just shows all the work that’s being put in up in Dublin. They were outstanding and that’s the perfect preparation for an All Ireland final..</h2>
+        <h2 class="subtitle is-4">That game had everything and it just shows all the work that’s being put in up in Dublin. They were outstanding and that’s the perfect preparation for an All Ireland final.</h2>
 
         <div class="columns" v-if="players && players.length">
-          <div class="column is-one-third" v-for="faq of faqs">
+          <div class="column is-one-third" v-for="player of players">
             <div class="card">
               <div class="card-content">
-                <p class="title">{{ players.title }}</p>
-                <p class="answer">{{players.body }}</p>
+                <p class="title">{{ player.title }}</p>
+                <p class="answer">{{player.body }}</p>
               </div>
             </div>
           </div>
